@@ -11,3 +11,6 @@ wheels/
 
 # Ignore env
 .env
+
+# Ignore temporary data
+.data/
