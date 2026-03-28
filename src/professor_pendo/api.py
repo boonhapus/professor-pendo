@@ -75,7 +75,7 @@ class PendoAPI(niquests.AsyncSession):
         self._api_key = integration_key
 
         super().__init__(
-            base_url=f"https://{self.base_url_map(env=data_environment)}/api/v1",
+            base_url=f"https://{self.domain_data_evironment(env=data_environment)}/api/v1",
             hooks=LoggingHook(),
             **session_opts,
         )
