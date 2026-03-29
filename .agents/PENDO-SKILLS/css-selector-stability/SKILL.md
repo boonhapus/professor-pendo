@@ -9,6 +9,8 @@ description: >
   testing (Cypress, Playwright, Selenium, etc.), or pastes a CSS selector and
   asks for feedback. Also trigger when the user mentions brittle tests, flaky
   selectors, or asks how to improve a locator.
+metadata:
+  version: "0.1.0"
 ---
 
 # CSS Selector Stability Evaluator

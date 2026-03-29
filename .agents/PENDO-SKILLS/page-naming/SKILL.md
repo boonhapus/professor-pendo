@@ -9,6 +9,8 @@ description: >
   "help me find badly named pages". Always trigger this skill when the user
   mentions Pendo pages AND naming, conventions, consistency, or discoverability,
   even if they phrase it casually.
+metadata:
+  version: "0.1.0"
 ---
 
 # page-naming

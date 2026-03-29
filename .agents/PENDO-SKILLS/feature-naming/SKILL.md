@@ -9,6 +9,8 @@ description: >
   "help me find badly named features". Always trigger this skill when the user
   mentions Pendo features AND naming, conventions, consistency, or discoverability,
   even if they phrase it casually.
+metadata:
+  version: "0.1.0"
 ---
 
 # feature-naming

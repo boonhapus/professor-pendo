@@ -8,6 +8,8 @@ description: >
   features", "get feature rules from Pendo", or "pull feature metadata from Pendo".
   Always use this skill when Pendo feature data is needed, even if the user phrases it
   casually.
+metadata:
+  version: "0.1.0"
 ---
 
 # get-pendo-feature-rules
