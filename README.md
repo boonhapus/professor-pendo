@@ -1,17 +1,31 @@
-# Professor Pendo
+<img src="docs/professor-pendo.png" align="right" alt="<Image: Professor Pendo logo/brand>" width="250" />
 
-![Professor Pendo](docs/professor-pendo.png)
+### _Clean data isn't a luxury; it's the signal. Let's fix yours._
 
-**Professor Pendo** helps Pendo admins run a cleaner subscription: clear naming, stable tagging, and guidance you can act on.
-
-This project ships with a bunch of **agent skills** under `.agents/PENDO-SKILLS/` — one folder per skill, each with a `SKILL.md`.
+#### **— Professor Pendo**
 
 ---
 
-## Skills
+The **Professor** is an Agent who helps **Pendo** admins run a cleaner subscription: clear naming, stable tagging, and guidance you can act on.
+
+This project ships with many **agent skills** under `.agents/PENDO-SKILLS/` — one folder per skill, each with a `SKILL.md`. See [**how to install**](#getting-started) them below.
+
+## Example prompts
+
+Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/en-us/articles/41102236924955-Connect-to-the-Pendo-MCP-server-beta) connected, your assistant can often pull live data to support answering.
+
+- _Audit my recent Pendo **page** against our naming convention and flag what's inconsistent._
+- _Audit my recent Pendo **feature** rules, score their rules, and give an explanation._
+- _Is this feature rule a bad idea for Pendo tagging? Score it and explain why:_ `button:contains('Home')`
+- _Which of these two selectors is more likely to survive a UI refactor?_ `.segment-chooser` _or_ `[data-testid="segment-chooser"]`
+- _Do I have any duplicate Pages?_
+
+---
+
+## Skills Library
 
 | Skill | What it does | Pendo MCP |
-| --- | --- | --- |
+| --- | --- | :---: |
 | **Feature naming** | Audit **feature** names for analytics and dropdowns. | ✅ |
 | **Page naming** | Audit **page** names for paths, funnels, and segments. | ✅ |
 | **CSS selector stability** | Score and explain **CSS selector** robustness. | ❌ |
@@ -19,21 +33,9 @@ This project ships with a bunch of **agent skills** under `.agents/PENDO-SKILLS/
 
 ---
 
-## Example prompts
+## Getting Started
 
-Paste or adapt these in chat. With **Pendo MCP** connected, your assistant can often pull live data for naming questions; otherwise, paste lists or exports.
-
-- "Audit my recent Pendo **page** against our naming convention and flag what's inconsistent."
-- "Audit my recent Pendo **feature** rules, score their rules, and give an explanation."
-- "Is this feature rule a bad idea for Pendo tagging? Score it and explain why: `button:contains('Home')`"
-- "Which of these two selectors is more likely to survive a UI refactor? `.segment-chooser` or `[data-testid="segment-chooser"]`"
-- "Do I have any duplicate Pages?"
-
----
-
-## Install skills
-
-You're just moving folders into the right place—no extra setup from this repo before you start.
+In order to install these skills, you're just moving folders into the right place - no extra setup needed.
 
 1. **Get the repo** — [download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip) and unzip, or clone this repo.
 2. **Open** `.agents/PENDO-SKILLS/`. Copy **each whole skill folder** (not just `SKILL.md`). On disk those folders are named `feature-naming`, `page-naming`, `css-selector-stability`, and `get-pendo-feature-rules`.
@@ -48,3 +50,10 @@ You're just moving folders into the right place—no extra setup from this repo 
 | **Other chat apps** | Custom instructions, uploads, or paste from this repo | Custom instructions, uploads, or paste from this repo |
 
 Reload or restart if your app requires it.
+
+## Contributing
+
+All contributions are welcome :heart: from bug reports, ideas, to pull requests. Every bit helps!
+
+- **Human contributors:** Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before getting started.
+- **AI agents & copilots:** Please read [`.agents/AGENTS.md`](./.agents/AGENTS.md) before making any changes.
