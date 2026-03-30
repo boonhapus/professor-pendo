@@ -10,23 +10,15 @@
 # ///
 from typing import Annotated
 import json
-import logging
 import pathlib
-import sys
 
-from professor_pendo import api, types
+from professor_pendo import api, types, utils
 from cyclopts import App, Parameter
 import dotenv
 import niquests
 import structlog
 
-type ExitCodeT = int
 LOGGER = structlog.get_logger(__name__)
-
-# LOAD FROM python-dotenv, SO cyclopts CAN USE THEM AS DEFAULTS
-dotenv.load_dotenv()
-
-# -- CLI ---
 
 app = App(
     name="run-pendo-aggregation",
@@ -40,32 +32,44 @@ async def main(
     subscription_id: Annotated[int, Parameter(env_var="PENDO_SUBSCRIPTION_ID")],
     integration_key: Annotated[str, Parameter(env_var="PENDO_INTEGRATION_KEY")],
     data_environment: Annotated[types.DataEnvironmentT, Parameter(env_var="PENDO_DATA_ENVIRONMENT")] = "io",
-    output: pathlib.Path = pathlib.Path(".data/tmp/pendo_features.json"),
-    pipeline: Annotated[pathlib.Path | str, Parameter(help="JSON string of the aggregation pipeline OR a path to a JSON file containing it.")],
-) -> ExitCodeT:
-    # LOAD THE PIPELINE
-    if isinstance(pipeline, pathlib.Path):
-        pipeline = pipeline.read_text(encoding="utf-8")
+    output: pathlib.Path = pathlib.Path(".data/tmp/aggregation.json"),
+    # ── Aggregation Pipeline ──────────────────────────────────────────
+    pipeline: Annotated[str, Parameter(help="JSON of the aggregation pipeline (raw string or filepath.json)")],
+) -> types.ExitCodeT:
 
-    pipeline = json.loads(pipeline)
-
-    opts = {
-        "subscription_id": subscription_id,
-        "integration_key": integration_key,
-        "data_environment": data_environment,
-    }
+    # ── PREPARE ───────────────────────────────────────────────────────
 
     try:
-        # FETCH DATA
+        if (fp := pathlib.Path(pipeline)).exists():
+            pipeline = fp.read_text()
+
+        pipeline = json.loads(pipeline)
+    except json.JSONDecodeError as e:
+        await LOGGER.aerror("load_pipeline_failed", error=str(e))
+        return 1
+
+    # ── MAIN ──────────────────────────────────────────────────────────
+
+    try:
+
+        # ── FETCH DATA ────────────────────────────────────────────────
+
+        opts = {
+            "subscription_id": subscription_id,
+            "integration_key": integration_key,
+            "data_environment": data_environment,
+        }
+
         async with api.PendoAPI(**opts) as client:
             r = await client.aggregation(pipeline=pipeline)
             r.raise_for_status()
             d = r.json()
 
-        # OUTPUT RESULTS
+        # ── WRITE TO FILE ─────────────────────────────────────────────
+
         output.parent.mkdir(parents=True, exist_ok=True)
 
-        with output.open("w", encoding="utf-8") as j:
+        with output.with_suffix(".json").open("w", encoding="utf-8") as j:
             json.dump(d, j, indent=2, ensure_ascii=False)
 
         return 0
@@ -80,18 +84,7 @@ async def main(
 
 
 if __name__ == "__main__":
-    structlog.configure(
-        processors=[
-            structlog.contextvars.merge_contextvars,
-            structlog.processors.add_log_level,
-            structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.format_exc_info,
-            structlog.processors.UnicodeDecoder(), 
-            structlog.processors.JSONRenderer()
-        ],
-        wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
-        logger_factory=structlog.WriteLoggerFactory(file=sys.stderr),
-        cache_logger_on_first_use=True,
-    )
+    utils.setup_logging()
+    dotenv.load_dotenv()
 
     raise SystemExit(app())
