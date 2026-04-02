@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This repository is in **beta**: we're still shaping things up, so you may see layout, docs, or skills shift over the next few weeks as we iterate.
+
+---
+
 <img src="docs/professor-pendo.png" align="right" alt="<Image: Professor Pendo logo/brand>" width="250" />
 
 ### _Clean data isn't a luxury; it's the signal. Let's fix yours._
