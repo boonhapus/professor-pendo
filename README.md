@@ -52,16 +52,19 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 2. In the project folder, go to **`.agents`** → **`SKILLS`**. Copy the **`pendo`** folder you see there (do not rename it).
 3. **Paste `pendo`** at the path for your tool in the table. Copy the folder as one piece, not the smaller folders inside it one by one.
 
+Restart the app (or reload the window) if you do not see the new behavior right away.
+
 | Tool | Windows | Mac |
 | --- | --- | --- |
 | **Cursor** | `.agents\skills\pendo\` | `.agents/skills/pendo/` |
 | **Claude Code** | `%USERPROFILE%\.claude\skills\pendo\` | `~/.claude/skills/pendo/` |
 | **Gemini CLI** | `.gemini\skills\pendo\` | `.gemini/skills/pendo/` |
 
-> [!WARNING]
-> **Why isn't Claude Desktop and browser chat apps** in the table above? **API skills** need to run **Python** and send **authenticated HTTP requests** (your Pendo integration key, usually via env vars). Those UIs generally do not run that code or wire credentials the way **Cursor** or a **CLI** does.
+_**Why isn't Claude Desktop and browser chat apps** in the table above? **API skills** need to run **Python** and send **authenticated HTTP requests** (your Pendo integration key, usually via env vars). Those UIs generally do not run that code or wire credentials the way **Cursor** or a **CLI** does._
 
-Restart the app (or reload the window) if you do not see the new behavior right away.
+> [!NOTE]
+> **[`.env.sample`](.env.sample)** lists the **environment variable names** Pendo API scripts in this repo expect: `PENDO_SUBSCRIPTION_ID`, `PENDO_INTEGRATION_KEY`, and optionally `PENDO_DATA_ENVIRONMENT` (data region). It ships **without secrets** so credentials never live in git. To use it, copy the file to **`.env`** in the repo root, fill in your values, and keep **`.env`** local (it is **gitignored**).
+
 
 ## Contributing
 
