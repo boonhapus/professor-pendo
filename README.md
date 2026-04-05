@@ -46,19 +46,20 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 
 ## Getting Started
 
-**What this does:** Your AI assistant (Cursor, Claude, Gemini, or similar) can follow **skills**: short guides that help it answer Pendo questions the way Professor Pendo intends. Installing means copying one folder from this project into the place your app looks for those guides. There is no installer and no login here; you are just adding files your tool already knows how to read.
+**What this does:** These **skills** are short guides your AI can follow for Pendo naming, tagging, and analytics. The install steps below are for **Cursor** and **CLI** tools that load a skills folder. There is no installer; you copy one folder into the path your tool expects.
 
 1. **[Download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip)** and unzip it (or clone the repo if you use Git).
 2. In the project folder, go to **`.agents`** → **`SKILLS`**. Copy the **`pendo`** folder you see there (do not rename it).
-3. **Paste `pendo`** into the folder your app uses for skills (see the table below). Copy the folder as one piece, not the smaller folders inside it one by one.
+3. **Paste `pendo`** at the path for your tool in the table. Copy the folder as one piece, not the smaller folders inside it one by one.
 
-| If you use… | Put the **`pendo`** folder here (Windows) | Put the **`pendo`** folder here (Mac) |
+| Tool | Windows | Mac |
 | --- | --- | --- |
-| **Cursor** | `.agents\skills\pendo\` next to your project (create `skills` if it is missing) | `.agents/skills/pendo/` next to your project |
+| **Cursor** | `.agents\skills\pendo\` | `.agents/skills/pendo/` |
 | **Claude Code** | `%USERPROFILE%\.claude\skills\pendo\` | `~/.claude/skills/pendo/` |
-| **Gemini CLI** | `.gemini\skills\pendo\` in your project folder | `.gemini/skills/pendo/` in your project folder |
-| **Claude Desktop** | Often: add a file or folder via **Settings**, or paste content into **Custom instructions**. Use any `SKILL.md` from the `pendo` folder if your app asks for a file. | Same as Windows |
-| **Another chat app** | Use that app’s option for custom instructions, uploads, or project files, or paste text from a `SKILL.md` in this repo. | Same as Windows |
+| **Gemini CLI** | `.gemini\skills\pendo\` | `.gemini/skills/pendo/` |
+
+> [!WARNING]
+> **Why isn't Claude Desktop and browser chat apps** in the table above? **API skills** need to run **Python** and send **authenticated HTTP requests** (your Pendo integration key, usually via env vars). Those UIs generally do not run that code or wire credentials the way **Cursor** or a **CLI** does.
 
 Restart the app (or reload the window) if you do not see the new behavior right away.
 
