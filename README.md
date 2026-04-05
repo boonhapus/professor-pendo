@@ -13,17 +13,17 @@
 
 The **Professor** is an Agent who helps **Pendo** admins run a cleaner subscription: clear naming, stable tagging, and guidance you can act on.
 
-This project ships with many **agent skills** under `.agents/SKILLS/pendo/`: one folder per skill, each with a `SKILL.md`. See [**how to install**](#getting-started) them below.
+This project ships a **`pendo`** skills bundle under `.agents/SKILLS/pendo/`: a domain index `SKILL.md` plus one folder per topic (each with its own `SKILL.md`). See [**how to install**](#getting-started) it below.
 
 ## Example prompts
 
-Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/en-us/articles/41102236924955-Connect-to-the-Pendo-MCP-server-beta) connected, your assistant can often pull live data to support answering. **Scope each prompt** (time window, max rows, or “this selector only”) so the assistant doesn’t walk the whole subscription.
+Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/en-us/articles/41102236924955-Connect-to-the-Pendo-MCP-server-beta) connected, your assistant can often pull live data to support answering.
 
 - _**Pages** with definitions updated in the last **90 days**. Which names break our naming convention?_
 - _**Features** with definitions updated in the last **60 days**. Which names break our naming convention?_
 - _For **features** updated in the last **30 days**, pull rules, score each selector, flag the weakest._
 - _Score this selector only for tagging stability (0-100). No subscription-wide pull:_ `button:contains('Home')`
-- _These two selectors only. Which survives a UI refactor better?_ `.segment-chooser` _vs_ `[data-testid="segment-chooser"]`
+- _Which survives a UI refactor better?_ `.segment-chooser` _vs_ `[data-testid="segment-chooser"]`
 - _**Pages** updated in the last **14 days**. Any duplicates (same URL or rule intent)?_
 - _Aggregation: count visitors who clicked Feature X in the last **7 days** (not all-time)._
 
@@ -46,21 +46,21 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 
 ## Getting Started
 
-In order to install these skills, you're just moving folders into the right place - no extra setup needed.
+**What this does:** Your AI assistant (Cursor, Claude, Gemini, or similar) can follow **skills**: short guides that help it answer Pendo questions the way Professor Pendo intends. Installing means copying one folder from this project into the place your app looks for those guides. There is no installer and no login here; you are just adding files your tool already knows how to read.
 
-1. **Get the repo**: [download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip) and unzip, or clone this repo.
-2. **Open** `.agents/SKILLS/pendo/`. Copy **each whole skill folder** (not just `SKILL.md`).
-3. **Drop them into** the folder your tool expects:
+1. **[Download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip)** and unzip it (or clone the repo if you use Git).
+2. In the project folder, go to **`.agents`** → **`SKILLS`**. Copy the **`pendo`** folder you see there (do not rename it).
+3. **Paste `pendo`** into the folder your app uses for skills (see the table below). Copy the folder as one piece, not the smaller folders inside it one by one.
 
-| Tool | Windows | Mac |
+| If you use… | Put the **`pendo`** folder here (Windows) | Put the **`pendo`** folder here (Mac) |
 | --- | --- | --- |
-| **Cursor** | `.agents\skills\` at the project root | `.agents\skills\` at the project root |
-| **Claude Code** | `%USERPROFILE%\.claude\skills\` | `~/.claude/skills/` |
-| **Gemini CLI** | `.gemini\skills\` in the workspace | `.gemini/skills/` in the workspace |
-| **Claude Desktop** | Custom instructions, project files, or attach `SKILL.md` | Custom instructions, project files, or attach `SKILL.md` |
-| **Other chat apps** | Custom instructions, uploads, or paste from this repo | Custom instructions, uploads, or paste from this repo |
+| **Cursor** | `.agents\skills\pendo\` next to your project (create `skills` if it is missing) | `.agents/skills/pendo/` next to your project |
+| **Claude Code** | `%USERPROFILE%\.claude\skills\pendo\` | `~/.claude/skills/pendo/` |
+| **Gemini CLI** | `.gemini\skills\pendo\` in your project folder | `.gemini/skills/pendo/` in your project folder |
+| **Claude Desktop** | Often: add a file or folder via **Settings**, or paste content into **Custom instructions**. Use any `SKILL.md` from the `pendo` folder if your app asks for a file. | Same as Windows |
+| **Another chat app** | Use that app’s option for custom instructions, uploads, or project files, or paste text from a `SKILL.md` in this repo. | Same as Windows |
 
-Reload or restart if your app requires it.
+Restart the app (or reload the window) if you do not see the new behavior right away.
 
 ## Contributing
 
