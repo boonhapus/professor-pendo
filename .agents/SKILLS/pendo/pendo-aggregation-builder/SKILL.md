@@ -1,19 +1,22 @@
 ---
-name: aggregation-builder
+name: pendo-aggregation-builder
 description: >-
-  Use this skill when the user wants to query Pendo data using the Aggregation
-  API. Triggers: any request to count, list, filter, group, trend, or analyze
-  Pendo visitors, accounts, events, pages, features, guides, polls, or track
-  events. Also triggers on: 'write me an aggregation', 'how many visitors',
-  'show me usage', 'build a query', 'top pages', 'active users', 'retention',
-  'funnel', or any natural-language analytics question about Pendo product
-  data. Do NOT use for Pendo SDK installation, metadata write APIs, or SCIM
-  provisioning.
+  Use when the user needs to understand how Pendo Aggregation API pipelines work,
+  compose a new pipeline, or run or verify an existing one (debug JSON, validate
+  steps, or turn a question into a working query). Triggers: count/list/filter/group/trend
+  analytics over visitors, accounts, events, pages, features, guides, polls, or track
+  events; phrases like "write an aggregation", "build a pipeline", "verify my query",
+  "how many…", "top N", "funnel", "retention", "usage over time". Do NOT use for SDK
+  installation, metadata write APIs, or SCIM provisioning.
 metadata:
   version: "0.1.0"
+  pendo_mcp: false
+  pendo_api: true
 ---
 
 # Pendo Aggregation Builder
+
+**When to use:** Learn how aggregations work, build a pipeline from a natural-language question, or run or verify an existing Aggregation API request. **Not** for SDK setup, metadata writes, or SCIM.
 
 ## What This Skill Does
 

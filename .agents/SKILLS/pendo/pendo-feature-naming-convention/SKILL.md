@@ -1,21 +1,23 @@
 ---
-name: feature-naming
+name: pendo-feature-naming-convention
 description: >
-  Audits Pendo feature names against a naming convention template to improve
-  discoverability in analytics dropdowns. Use this skill whenever the user wants
-  to check, audit, review, or validate Pendo feature names — including requests
-  like "check my Pendo feature naming", "audit feature names", "which features
-  don't follow the naming convention", "review my recently updated features", or
-  "help me find badly named features". Always trigger this skill when the user
-  mentions Pendo features AND naming, conventions, consistency, or discoverability,
-  even if they phrase it casually.
+  Audits Pendo **feature** names for consistent, readable, understandable labels and
+  explains why that matters for analytics and tagged UI elements. Trigger when the user
+  asks about feature naming conventions, consistency, readability, discoverability, or
+  wants an audit of Pendo features (e.g. "check my feature names", "which features break
+  our convention", "badly named features", "recently updated features"). For **page**
+  names only, use `pendo-page-naming-convention` instead.
 metadata:
   version: "0.1.0"
+  pendo_mcp: true
+  pendo_api: false
 ---
 
 # feature-naming
 
 Audits Pendo feature names against a naming convention and explains why consistent naming matters.
+
+**When to use:** Questions about **Feature** entity names—conventions, consistency, readability, discoverability, or audits of recently updated features. For **Page** names, use `pendo-page-naming-convention`.
 
 ---
 

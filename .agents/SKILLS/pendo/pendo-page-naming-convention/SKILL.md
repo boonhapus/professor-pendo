@@ -1,21 +1,23 @@
 ---
-name: page-naming
+name: pendo-page-naming-convention
 description: >
-  Audits Pendo page names against a naming convention template to improve
-  discoverability in analytics dropdowns. Use this skill whenever the user wants
-  to check, audit, review, or validate Pendo page names — including requests
-  like "check my Pendo page naming", "audit page names", "which pages don't
-  follow the naming convention", "review my recently updated pages", or
-  "help me find badly named pages". Always trigger this skill when the user
-  mentions Pendo pages AND naming, conventions, consistency, or discoverability,
-  even if they phrase it casually.
+  Audits Pendo **page** names for consistent, readable, understandable labels and explains
+  why that matters for analytics and segments. Trigger when the user asks about page
+  naming conventions, consistency, readability, discoverability, or wants an audit of
+  Pendo pages (e.g. "check my page names", "which pages break our convention", "badly
+  named pages", "recently updated pages"). For **feature** names only, use
+  `pendo-feature-naming-convention` instead.
 metadata:
   version: "0.1.0"
+  pendo_mcp: true
+  pendo_api: false
 ---
 
 # page-naming
 
 Audits Pendo page names against a naming convention and explains why consistent naming matters.
+
+**When to use:** Questions about **Page** entity names—conventions, consistency, readability, discoverability, or audits of recently updated pages. For **Feature** names, use `pendo-feature-naming-convention`.
 
 ---
 

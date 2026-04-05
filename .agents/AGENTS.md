@@ -4,52 +4,35 @@ Agent-oriented context for **professor-pendo**. This file follows the open [AGEN
 
 ## Project overview
 
-This repository is primarily a **distribution channel for agent skills** aimed at **Pendo subscription administrators**. The skills under [.agents/PENDO-SKILLS/](PENDO-SKILLS/) encode operational practices—naming, governance, feature rules, selector stability, and related workflows—so teams can **standardize and scale** how they run Pendo.
+This repository is mainly a **distribution channel for agent skills** aimed at **Pendo subscription administrators**, plus a small **Python package** for Pendo API access used by some scripts.
 
-Each skill lives in its own folder with a `SKILL.md`; some include `scripts/` for repeatable checks or helpers. Browse [PENDO-SKILLS/](PENDO-SKILLS/) for the current set (for example `feature-naming`, `page-naming`, `css-selector-stability`, `get-pendo-feature-rules`).
+## What lives under `.agents/`
+
+| Path | Purpose |
+| --- | --- |
+| [`SKILLS/pendo/`](SKILLS/pendo/) | **Pendo-domain skills**—operational guidance (naming, analytics, tagging, and related workflows). Each topic is its own folder with a `SKILL.md`; some include `scripts/` or `resources/`. |
+| [`SKILLS/contributing/`](SKILLS/contributing/) | **Working on this repo**—conventions, layout, and keeping the skill indexes accurate when skills change. |
+
+Do not treat this file as a catalog of individual skills; open the folder that matches the task and follow its `SKILL.md`.
 
 ## Instructions for coding agents
 
-### CSS selector stability (Pendo tagging, tests, locators)
+When work matches a skill’s scope, read that skill’s `SKILL.md` (and any `scripts/` or `resources/` it references) and follow it. Run commands from the **repository root** unless the skill says otherwise.
 
-When the user asks about **selector quality or stability**, **whether a selector is a good idea for Pendo** (or Cypress, Playwright, Selenium, etc.), **which of two selectors is better**, **brittle or flaky locators**, or **feedback on a pasted CSS selector** (including `:contains`, `data-testid`, classes, etc.):
+## Python package
 
-1. Read and follow [PENDO-SKILLS/css-selector-stability/SKILL.md](PENDO-SKILLS/css-selector-stability/SKILL.md) end-to-end.
-2. From the **repository root**, run the bundled evaluator so dependencies resolve correctly:
-
-   ```bash
-   uv run .agents/PENDO-SKILLS/css-selector-stability/scripts/evaluate_selector.py "<selector>"
-   uv run .agents/PENDO-SKILLS/css-selector-stability/scripts/evaluate_selector.py --json "<selector>"
-   ```
-
-3. Answer using the skill’s format: **score and grade** first, then **bonuses** and **penalties**, then a **one-sentence recommendation**.
-
-On **Windows**, if `uv run` raises `UnicodeEncodeError` when printing (emoji in grades), enable UTF-8 for that shell before running, for example PowerShell: `$env:PYTHONUTF8 = "1"` (or `$env:PYTHONIOENCODING = "utf-8"`). Then human output and `--json` both work.
-
-### Other Pendo skills
-
-For naming, governance, feature rules, and other workflows, open the matching folder under [PENDO-SKILLS/](PENDO-SKILLS/) and follow its `SKILL.md` (and any `scripts/` there).
-
-## Contributing to this repository
-
-For **how to contribute code** to this repo—layout, conventions, and how to work with the Python package when changing behavior—see [CONTRIBUTING-SKILLS/SKILL.md](CONTRIBUTING-SKILLS/SKILL.md).
-
-## Python package: Pendo API client
-
-[src/professor_pendo/api.py](../src/professor_pendo/api.py) holds this project's **Pendo Engage API client**: code that calls Pendo's REST API to support **scripts and automation** alongside the skills. For detailed guidance on extending or using that code, prefer [CONTRIBUTING-SKILLS/SKILL.md](CONTRIBUTING-SKILLS/SKILL.md).
+[`src/professor_pendo/api.py`](../src/professor_pendo/api.py) is the **Pendo Engage API client** for scripts and automation. For how to extend or use it alongside skills, use the contribution guidance under [`SKILLS/contributing/`](SKILLS/contributing/).
 
 ## Setup
 
-Use **[uv](https://github.com/astral-sh/uv)** for installs and day-to-day project commands. From the repository root:
+Use **[uv](https://github.com/astral-sh/uv)**. From the repository root: `uv sync`.
 
-- `uv sync`
-
-If you run Pendo-connected scripts locally, copy [.env.sample](../.env.sample) to `.env` (or otherwise supply the same variables through your environment) and keep secrets out of version control.
+If you run Pendo-connected scripts locally, copy [`.env.sample`](../.env.sample) to `.env` (or set the same variables another way) and keep secrets out of version control.
 
 ## Testing
 
-There is no automated test suite in the tree yet. When tests are added, run whatever the project documents (for example CI or `uv` invocations) and fix failures before finishing a change.
+There is no automated test suite in the tree yet. When tests exist, run what the project documents and fix failures before finishing a change.
 
 ## Security
 
-Do **not** commit Pendo integration keys or other subscription secrets. Treat data retrieved via the API or skills as sensitive to the customer's subscription.
+Do **not** commit Pendo integration keys or other subscription secrets. Treat API and skill output as sensitive to the customer’s subscription.
