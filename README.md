@@ -108,10 +108,9 @@ clone to use the repo copy of the bundle; otherwise the script downloads from Gi
 └──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-
 ## Contributing
 
 All contributions are welcome :heart: from bug reports, ideas, to pull requests. Every bit helps!
 
-- **Human contributors:** Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before getting started.
+- **Human contributors:** Please read [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md) before getting started.
 - **AI agents & copilots:** Please read [`.agents/AGENTS.md`](./.agents/AGENTS.md) before making any changes.
