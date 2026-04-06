@@ -48,13 +48,13 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 
 ## Getting Started
 
-**What this does:** These **skills** are short guides your AI can follow for Pendo naming, tagging, and analytics. The install steps below are for **Cursor** and **CLI** tools that load a skills folder. There is no installer; you copy one folder into the path your tool expects.
+These **skills** are short guides your AI can follow for Pendo naming, tagging, and analytics. Install them into **Cursor**, **Claude Code**, or **Gemini CLI** by copying one folder into the path your tool expects (below).
 
-1. **[Download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip)** and unzip it (or clone the repo if you use Git).
-2. In the project folder, go to **`.agents`** → **`SKILLS`**. Copy the **`pendo`** folder you see there (do not rename it).
-3. **Paste `pendo`** at the path for your tool in the table. Copy the folder as one piece, not the smaller folders inside it one by one.
+### Manual install
 
-Restart the app (or reload the window) if you do not see the new behavior right away.
+1. **[Download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip)** and unzip it, or clone this repo.
+2. Open **`.agents`** → **`SKILLS`** and copy the **`pendo`** folder (do not rename it).
+3. Paste **`pendo`** into the destination for your tool. Copy the whole folder at once, not the subfolders one by one.
 
 | Tool | Windows | Mac |
 | --- | --- | --- |
@@ -62,10 +62,51 @@ Restart the app (or reload the window) if you do not see the new behavior right 
 | **Claude Code** | `%USERPROFILE%\.claude\skills\pendo\` | `~/.claude/skills/pendo/` |
 | **Gemini CLI** | `.gemini\skills\pendo\` | `.gemini/skills/pendo/` |
 
+Restart the app (or reload the window) if the skills do not appear right away.
+
 _**Why isn't Claude Desktop and browser chat apps** in the table above? **API skills** need to run **Python** and send **authenticated HTTP requests** (your Pendo integration key, usually via env vars). Those UIs generally do not run that code or wire credentials the way **Cursor** or a **CLI** does._
 
 > [!NOTE]
 > **[`.env.sample`](.env.sample)** lists the **environment variable names** Pendo API scripts in this repo expect: `PENDO_SUBSCRIPTION_ID`, `PENDO_INTEGRATION_KEY`, and optionally `PENDO_DATA_ENVIRONMENT` (data region). It ships **without secrets** so credentials never live in git. To use it, copy the file to **`.env`** in the repo root, fill in your values, and keep **`.env`** local (it is **gitignored**).
+
+---
+
+### Install with [uv](https://github.com/astral-sh/uv)
+
+Install [uv](https://github.com/astral-sh/uv), then run the line below. You do **not** need to clone this repo first; the script is [on GitHub here](https://raw.githubusercontent.com/boonhapus/professor-pendo/main/scripts/install-professor-pendo.py).
+
+```bash
+uv run https://raw.githubusercontent.com/boonhapus/professor-pendo/main/scripts/install-professor-pendo.py --help
+```
+
+Example output:
+
+```
+Usage: install-professor-pendo --which WHICH [OPTIONS]
+
+Copy the Pendo skills bundle into the folder Cursor, Claude Code, or Gemini CLI looks for. Run inside a
+clone to use the repo copy of the bundle; otherwise the script downloads from GitHub.
+
+┌─ Commands ───────────────────────────────────────────────────────────────────────────────────────────┐
+│ --help     Display this message and exit.                                                            │
+│ --version  Display application version.                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Parameters ─────────────────────────────────────────────────────────────────────────────────────────┐
+│ *  --which      cursor, claude (Claude Code), or gemini (Gemini CLI).                                │
+│                 [choices: cursor, claude, gemini]                                                    │
+│                 [required]                                                                           │
+│    --source     auto: use this repo's bundle if present, else download from GitHub. cloned: only use │
+│                 .agents/SKILLS/pendo from this clone (fail if missing). github: always download from │
+│                 main on GitHub.                                                                      │
+│                 [choices: auto, cloned, github]                                                      │
+│                 [default: auto]                                                                      │
+│    --directory  Project folder for Cursor / Gemini (where .agents or .gemini should live).           │
+│    --replace    Overwrite the destination folder if it already exists.                               │
+│                 [default: False]                                                                     │
+│    --dry-run    Print what would happen without copying or downloading.                              │
+│                 [default: False]                                                                     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 
 ## Contributing
