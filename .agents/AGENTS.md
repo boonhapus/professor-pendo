@@ -10,7 +10,7 @@ This repository is mainly a **distribution channel for agent skills** aimed at *
 
 | Path | Purpose |
 | --- | --- |
-| [`SKILLS/pendo/`](SKILLS/pendo/) | **Pendo-domain skills**—operational guidance (naming, analytics, tagging, and related workflows). Each topic is its own folder with a `SKILL.md`; some include `scripts/` or `resources/`. |
+| [`SKILLS/pendo/`](SKILLS/pendo/) | **Pendo-domain skills**—operational guidance (naming, analytics, tagging, product documentation, and related workflows). Each topic is its own folder with a `SKILL.md`; some include `scripts/` or `resources/`. |
 | [`SKILLS/contributing/`](SKILLS/contributing/) | **Working on this repo**—conventions, layout, and keeping the skill indexes accurate when skills change. |
 
 Do not treat this file as a catalog of individual skills; open the folder that matches the task and follow its `SKILL.md`.
