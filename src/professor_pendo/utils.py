@@ -49,7 +49,7 @@ def setup_logging(log_level: int = logging.INFO) -> None:
             "event": "msg",
             "func_name": "fn",
             "lineno": "ln",
-            "exception": "exc"
+            "exception": "exc",
         }
         return {renames.get(k, k): v for k, v in event_dict.items()}
 

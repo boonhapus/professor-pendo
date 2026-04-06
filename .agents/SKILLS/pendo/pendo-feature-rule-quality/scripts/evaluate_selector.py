@@ -35,7 +35,10 @@ app = App(
 def main(
     selector: Annotated[str, Parameter(help="CSS selector string to evaluate.")],
     *,
-    emit_json: Annotated[bool, Parameter("--json", help="Print machine-readable JSON instead of a text report.")] = False,
+    emit_json: Annotated[
+        bool,
+        Parameter("--json", help="Print machine-readable JSON instead of a text report."),
+    ] = False,
 ) -> ExitCodeT:
     trimmed = selector.strip()
     if not trimmed:
@@ -110,7 +113,9 @@ def has_data_test_attribute(selector: str) -> bool:
 
 
 def has_semantic_data_attribute(selector: str) -> bool:
-    has_non_test = bool(re.search(r"\[data-(?!test|cy|testid|qa|automation)[a-z]", selector, re.IGNORECASE))
+    has_non_test = bool(
+        re.search(r"\[data-(?!test|cy|testid|qa|automation)[a-z]", selector, re.IGNORECASE)
+    )
 
     standard_attrs_pattern = re.compile(
         r"\[(id|class|style|href|src|alt|title|type|name|value|placeholder|"
@@ -125,7 +130,9 @@ def has_semantic_data_attribute(selector: str) -> bool:
 
     attr_matches = re.findall(r"\[([a-z][a-z0-9-]*)", selector, re.IGNORECASE)
     for attr_name in attr_matches:
-        if not standard_attrs_pattern.match(f"[{attr_name}") and not re.match(r"^data-", attr_name, re.IGNORECASE):
+        if not standard_attrs_pattern.match(f"[{attr_name}") and not re.match(
+            r"^data-", attr_name, re.IGNORECASE
+        ):
             return True
 
     return has_non_test

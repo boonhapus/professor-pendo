@@ -10,11 +10,11 @@ LOGGER = structlog.get_logger(__name__)
 
 class LoggingHook(niquests.AsyncLifeCycleHook):
     """Structured logging hook for the Pendo API client."""
- 
+
     async def pre_request(self, prepared_request: niquests.PreparedRequest, **kwargs) -> None:
         """
         The prepared request just got built. You may alter it prior to be sent through HTTP.
-        
+
         Further reading:
           https://niquests.readthedocs.io/en/latest/user/advanced.html#niquests.hooks.AsyncLifeCycleHook.pre_request
         """
@@ -24,11 +24,11 @@ class LoggingHook(niquests.AsyncLifeCycleHook):
             url=str(prepared_request.url),
             body=prepared_request.body,
         )
- 
+
     async def response(self, response: niquests.Response, **kwargs) -> None:
         """
         The response generated from a Request. You may alter the response at will.
-        
+
         Further reading:
           https://niquests.readthedocs.io/en/latest/user/advanced.html#niquests.hooks.AsyncLifeCycleHook.response
         """
@@ -50,7 +50,7 @@ class PendoAPI(niquests.AsyncSession):
 
     Usage:
     >>> pendo_api = PendoClient()
-    >>> 
+    >>>
     >>> async with pendo_api as client:
     >>>     p = [{"source": {"visitors": None}}]
     >>>     r = await client.aggregate(pipeline=p)
@@ -88,7 +88,7 @@ class PendoAPI(niquests.AsyncSession):
                 "accept": "application/json",
             }
         )
-    
+
     @staticmethod
     def domain_data_evironment(env: types.DataEnvironmentT) -> str:
         """Lookup for the data environment."""
@@ -112,6 +112,9 @@ class PendoAPI(niquests.AsyncSession):
         Further reading:
           https://engageapi.pendo.io/#7c8479b8-3843-403c-94a9-04cbdf542db9
         """
-        b = {"response": {"mimeType": "application/json"}, "request": {"pipeline": pipeline}}
+        b = {
+            "response": {"mimeType": "application/json"},
+            "request": {"pipeline": pipeline},
+        }
         r = await self.post("/aggregation", json=b)
         return r

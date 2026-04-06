@@ -39,9 +39,7 @@ type ExitCodeT = int
 CLI_HELP_WIDTH = 105
 
 # Same archive as in README.md (Getting Started).
-GITHUB_MAIN_ZIP = (
-    "https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip"
-)
+GITHUB_MAIN_ZIP = "https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip"
 
 LOGGER = structlog.get_logger(__name__)
 
@@ -132,9 +130,7 @@ def _download_pendo_from_github(work_dir: pathlib.Path) -> pathlib.Path:
 
     found = _find_pendo_in_extract_root(work_dir)
     if found is None:
-        raise RuntimeError(
-            "Could not find `.agents/SKILLS/pendo` inside the downloaded archive."
-        )
+        raise RuntimeError("Could not find `.agents/SKILLS/pendo` inside the downloaded archive.")
     return found
 
 

@@ -31,10 +31,15 @@ async def main(
     *,
     subscription_id: Annotated[int, Parameter(env_var="PENDO_SUBSCRIPTION_ID")],
     integration_key: Annotated[str, Parameter(env_var="PENDO_INTEGRATION_KEY")],
-    data_environment: Annotated[types.DataEnvironmentT, Parameter(env_var="PENDO_DATA_ENVIRONMENT")] = "io",
+    data_environment: Annotated[
+        types.DataEnvironmentT, Parameter(env_var="PENDO_DATA_ENVIRONMENT")
+    ] = "io",
     output: pathlib.Path = pathlib.Path(".data/tmp/aggregation.json"),
     # ── Aggregation Pipeline ──────────────────────────────────────────
-    pipeline: Annotated[str, Parameter(help="JSON of the aggregation pipeline (raw string or filepath.json)")],
+    pipeline: Annotated[
+        str,
+        Parameter(help="JSON of the aggregation pipeline (raw string or filepath.json)"),
+    ],
 ) -> types.ExitCodeT:
 
     # ── PREPARE ───────────────────────────────────────────────────────
@@ -51,7 +56,6 @@ async def main(
     # ── MAIN ──────────────────────────────────────────────────────────
 
     try:
-
         # ── FETCH DATA ────────────────────────────────────────────────
 
         opts = {
@@ -80,7 +84,7 @@ async def main(
 
     except json.JSONDecodeError:
         await LOGGER.aerror("aggregation_invalid_json", exc_info=True)
-        return 1    
+        return 1
 
 
 if __name__ == "__main__":
