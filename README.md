@@ -26,6 +26,7 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 - _Which survives a UI refactor better?_ `.segment-chooser` _vs_ `[data-testid="segment-chooser"]`
 - _**Pages** updated in the last **14 days**. Any duplicates (same URL or rule intent)?_
 - _Aggregation: count visitors who clicked Feature X in the last **7 days** (not all-time)._
+- _How does guide activation work in Pendo? Pull the official docs and summarize with links._
 
 ---
 
@@ -36,10 +37,11 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 
 | Skill | What it does | MCP | API |
 | --- | --- | :---: | :---: |
-| [**Aggregation Builder**](.agents/SKILLS/pendo/pendo-aggregation-builder/) | Understand, build, or verify Pendo Aggregation API pipelines and natural-language analytics queries. | ❌ | ✅ |
-| [**Feature Naming Convention**](.agents/SKILLS/pendo/pendo-feature-naming-convention/) | Audit Pendo **feature** names for consistent, readable labels; explains why naming matters. | ✅ | ❌ |
-| [**Feature Rule Quality**](.agents/SKILLS/pendo/pendo-feature-rule-quality/) | Score feature CSS rules or pasted selectors for stability (0-100); JSON file from `fetch_features.py`, JSON on stdout from `--json`. | ❌ | ✅ |
-| [**Page Naming Convention**](.agents/SKILLS/pendo/pendo-page-naming-convention/) | Audit Pendo **page** names for consistent, readable labels; explains why naming matters. | ✅ | ❌ |
+| [**Aggregation Builder**](.agents/SKILLS/pendo/pendo-aggregation-builder/) | Use when the user needs to understand how Pendo Aggregation API pipelines work, compose pipelines, or verify queries. | ❌ | ✅ |
+| [**Documentation**](.agents/SKILLS/pendo/pendo-docs/) | Answer questions about Pendo features, concepts, SDK usage, API integration, and platform capabilities by fetching live documentation. | ❌ | ❌ |
+| [**Feature Naming Convention**](.agents/SKILLS/pendo/pendo-feature-naming-convention/) | Audits Pendo feature names for consistent, readable, understandable labels and explains why that matters for analytics and tagged UI elements. | ✅ | ❌ |
+| [**Feature Rule Quality**](.agents/SKILLS/pendo/pendo-feature-rule-quality/) | Evaluates Pendo feature CSS element rules for selector stability; scores selectors 0–100 via fetch_features.py and evaluate_selector.py. | ❌ | ✅ |
+| [**Page Naming Convention**](.agents/SKILLS/pendo/pendo-page-naming-convention/) | Audits Pendo page names for consistent, readable, understandable labels and explains why that matters for analytics and segments. | ✅ | ❌ |
 <!-- pendo-skills-end -->
 
 ---

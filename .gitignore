@@ -14,3 +14,7 @@ wheels/
 
 # Ignore temporary data
 .data/
+
+# Ignore AI local settings
+.claude/
+.gemini/

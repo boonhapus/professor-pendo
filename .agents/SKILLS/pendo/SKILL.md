@@ -19,8 +19,9 @@ Skills that run **`uv run`** on Python helpers which **print Unicode** to the te
 
 | Skill | What it does | MCP | API |
 | --- | --- | :---: | :---: |
-| [**Aggregation Builder**](./pendo-aggregation-builder/SKILL.md) | Understand, build, or verify Pendo Aggregation API pipelines and natural-language analytics queries. | ❌ | ✅ |
-| [**Feature Naming Convention**](./pendo-feature-naming-convention/SKILL.md) | Audit Pendo **feature** names for consistent, readable labels; explains why naming matters. | ✅ | ❌ |
-| [**Feature Rule Quality**](./pendo-feature-rule-quality/SKILL.md) | Score feature CSS rules or pasted selectors for stability (0–100); JSON file from `fetch_features.py`, JSON on stdout from `--json`. | ❌ | ✅ |
-| [**Page Naming Convention**](./pendo-page-naming-convention/SKILL.md) | Audit Pendo **page** names for consistent, readable labels; explains why naming matters. | ✅ | ❌ |
+| [**Aggregation Builder**](./pendo-aggregation-builder/SKILL.md) | Use when the user needs to understand how Pendo Aggregation API pipelines work, compose pipelines, or verify queries. | ❌ | ✅ |
+| [**Documentation**](./pendo-docs/SKILL.md) | Answer questions about Pendo features, concepts, SDK usage, API integration, and platform capabilities by fetching live documentation. | ❌ | ❌ |
+| [**Feature Naming Convention**](./pendo-feature-naming-convention/SKILL.md) | Audits Pendo feature names for consistent, readable, understandable labels and explains why that matters for analytics and tagged UI elements. | ✅ | ❌ |
+| [**Feature Rule Quality**](./pendo-feature-rule-quality/SKILL.md) | Evaluates Pendo feature CSS element rules for selector stability; scores selectors 0–100 via fetch_features.py and evaluate_selector.py. | ❌ | ✅ |
+| [**Page Naming Convention**](./pendo-page-naming-convention/SKILL.md) | Audits Pendo page names for consistent, readable, understandable labels and explains why that matters for analytics and segments. | ✅ | ❌ |
 <!-- pendo-skills-end -->
