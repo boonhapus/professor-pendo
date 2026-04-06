@@ -16,5 +16,6 @@ wheels/
 .data/
 
 # Ignore AI local settings
+.cursor/
 .claude/
 .gemini/
