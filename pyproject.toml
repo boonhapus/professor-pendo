@@ -1,7 +1,7 @@
 [project]
 name = "professor-pendo"
 version = "0.1.0"
-description = "Add your description here"
+description = "Agent Skills to help Pendo admins run a cleaner subscription."
 readme = "README.md"
 authors = [
     { name = "boonhapus", email = "me@boonhap.us" }
@@ -29,11 +29,10 @@ dev = [
 
 [tool.ruff]
 target-version = "py314"
-line-length = 88
+line-length = 105
 
 [tool.ruff.format]
 docstring-code-format = true
 
-# Used by mdformat (CLI and prek hook); keep near Ruff line-length when possible.
 [tool.mdformat]
-wrap = 88
+wrap = 105
