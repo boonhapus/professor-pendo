@@ -47,14 +47,14 @@ app = App(
 # Paths
 # ---------------------------------------------------------------------------
 
-SCRIPT_DIR  = pathlib.Path(__file__).parent
-REFS_DIR    = SCRIPT_DIR.parent / "references"
+SCRIPT_DIR = pathlib.Path(__file__).parent
+REFS_DIR = SCRIPT_DIR.parent / "references"
 
 SOURCE_FILES: dict[str, pathlib.Path] = {
     "help-center": REFS_DIR / "help-center.md",
-    "web-sdk":     REFS_DIR / "web-sdk.md",
-    "engage-api":  REFS_DIR / "engage-api.md",
-    "mobile-sdk":  REFS_DIR / "mobile-sdk.md",
+    "web-sdk": REFS_DIR / "web-sdk.md",
+    "engage-api": REFS_DIR / "engage-api.md",
+    "mobile-sdk": REFS_DIR / "mobile-sdk.md",
 }
 
 SourceT = Literal["all", "help-center", "web-sdk", "engage-api", "mobile-sdk"]
@@ -62,6 +62,7 @@ SourceT = Literal["all", "help-center", "web-sdk", "engage-api", "mobile-sdk"]
 # ---------------------------------------------------------------------------
 # Shared helpers
 # ---------------------------------------------------------------------------
+
 
 def _header(source: str, fetched_from: str) -> str:
     """Standard frontmatter block for every reference file."""
@@ -83,15 +84,15 @@ def _write(path: pathlib.Path, content: str) -> None:
 # Source: Help Center  (sitemap.xml → grouped article index)
 # ---------------------------------------------------------------------------
 
-SITEMAP_URL  = "https://support.pendo.io/hc/sitemap.xml"
-SITEMAP_NS   = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+SITEMAP_URL = "https://support.pendo.io/hc/sitemap.xml"
+SITEMAP_NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 # Map URL path prefixes → section labels
 _HC_SECTIONS: list[tuple[str, str]] = [
-    ("/hc/en-us/articles/",   "Articles"),
-    ("/hc/en-us/sections/",   "Sections"),
+    ("/hc/en-us/articles/", "Articles"),
+    ("/hc/en-us/sections/", "Sections"),
     ("/hc/en-us/categories/", "Categories"),
-    ("/hc/en-us/community/",  "Community Posts"),
+    ("/hc/en-us/community/", "Community Posts"),
 ]
 
 
@@ -114,11 +115,7 @@ async def _refresh_help_center(client: niquests.AsyncSession) -> str:
     r.raise_for_status()
 
     root = ET.fromstring(r.text)
-    urls: list[str] = [
-        loc.text.strip()
-        for loc in root.findall(".//sm:loc", SITEMAP_NS)
-        if loc.text
-    ]
+    urls: list[str] = [loc.text.strip() for loc in root.findall(".//sm:loc", SITEMAP_NS) if loc.text]
 
     await LOGGER.ainfo("sitemap_parsed", total_urls=len(urls))
 
@@ -170,24 +167,27 @@ async def _refresh_help_center(client: niquests.AsyncSession) -> str:
 # Source: Web SDK  (crawl known sitemap + extract nav links)
 # ---------------------------------------------------------------------------
 
-WEB_SDK_ROOT    = "https://web-sdk.pendo.io"
+WEB_SDK_ROOT = "https://web-sdk.pendo.io"
 WEB_SDK_SITEMAP = f"{WEB_SDK_ROOT}/sitemap.xml"
 
 # Fallback known paths if the sitemap is unavailable
 _WEB_SDK_KNOWN: list[tuple[str, str]] = [
-    ("/",                          "Overview — installation, builds, debugging"),
-    ("/config/",                   "Configuration — all initialize() options"),
-    ("/config/analytics",          "Analytics config"),
-    ("/config/core",               "Core config — apiKey, visitor, account"),
-    ("/config/guides",             "Guides config — delay, timeout, globalScripts"),
-    ("/config/network-logs",       "Network log capture config"),
-    ("/config/replay",             "Session Replay config"),
-    ("/events/browser-events",     "Browser events emitted by the SDK"),
-    ("/public/classic-guides",     "Public functions — pendo.track(), pendo.identify(), etc."),
-    ("/cookies/localstorage",      "Cookie and localStorage usage"),
+    ("/", "Overview — installation, builds, debugging"),
+    ("/config/", "Configuration — all initialize() options"),
+    ("/config/analytics", "Analytics config"),
+    ("/config/core", "Core config — apiKey, visitor, account"),
+    ("/config/guides", "Guides config — delay, timeout, globalScripts"),
+    ("/config/network-logs", "Network log capture config"),
+    ("/config/replay", "Session Replay config"),
+    ("/events/browser-events", "Browser events emitted by the SDK"),
+    (
+        "/public/classic-guides",
+        "Public functions — pendo.track(), pendo.identify(), etc.",
+    ),
+    ("/cookies/localstorage", "Cookie and localStorage usage"),
     ("/advanced/auto-frame-install", "Advanced — iframes, auto-install"),
-    ("/releases",                  "Release history — beta and stable tracks"),
-    ("/versions",                  "Version notes"),
+    ("/releases", "Release history — beta and stable tracks"),
+    ("/versions", "Version notes"),
 ]
 
 
@@ -201,11 +201,7 @@ async def _refresh_web_sdk(client: niquests.AsyncSession) -> str:
         r = await client.get(WEB_SDK_SITEMAP, timeout=10)
         r.raise_for_status()
         root = ET.fromstring(r.text)
-        raw_urls = [
-            loc.text.strip()
-            for loc in root.findall(".//sm:loc", SITEMAP_NS)
-            if loc.text
-        ]
+        raw_urls = [loc.text.strip() for loc in root.findall(".//sm:loc", SITEMAP_NS) if loc.text]
         for url in raw_urls:
             path = url.replace(WEB_SDK_ROOT, "") or "/"
             pages.append((path, ""))
@@ -246,21 +242,21 @@ async def _refresh_web_sdk(client: niquests.AsyncSession) -> str:
 # Source: Engage API  (fetch OpenAPI/Swagger spec or root page)
 # ---------------------------------------------------------------------------
 
-ENGAGE_API_ROOT    = "https://engageapi.pendo.io"
-ENGAGE_API_SPEC    = f"{ENGAGE_API_ROOT}/swagger.json"
+ENGAGE_API_ROOT = "https://engageapi.pendo.io"
+ENGAGE_API_SPEC = f"{ENGAGE_API_ROOT}/swagger.json"
 
 # Known top-level resource groups
 _API_RESOURCES: list[tuple[str, str]] = [
-    ("Aggregation",       "POST /api/v1/aggregation — analytics query pipeline"),
-    ("Features",          "CRUD for feature tag definitions"),
-    ("Pages",             "CRUD for page tag definitions"),
-    ("Guides",            "CRUD for in-app guides"),
-    ("Track Events",      "Custom track event ingestion and retrieval"),
-    ("Visitor Metadata",  "Read/write visitor metadata fields"),
-    ("Account Metadata",  "Read/write account metadata fields"),
-    ("NPS / Polls",       "NPS poll responses and metadata"),
-    ("Reports",           "Saved report definitions"),
-    ("Subscription",      "Subscription-level settings"),
+    ("Aggregation", "POST /api/v1/aggregation — analytics query pipeline"),
+    ("Features", "CRUD for feature tag definitions"),
+    ("Pages", "CRUD for page tag definitions"),
+    ("Guides", "CRUD for in-app guides"),
+    ("Track Events", "Custom track event ingestion and retrieval"),
+    ("Visitor Metadata", "Read/write visitor metadata fields"),
+    ("Account Metadata", "Read/write account metadata fields"),
+    ("NPS / Polls", "NPS poll responses and metadata"),
+    ("Reports", "Saved report definitions"),
+    ("Subscription", "Subscription-level settings"),
 ]
 
 
@@ -329,10 +325,17 @@ async def _refresh_engage_api(client: niquests.AsyncSession) -> str:
 
 MOBILE_SDK_REPO = "pendo-io/pendo-mobile-sdk"
 GITHUB_TREE_URL = f"https://api.github.com/repos/{MOBILE_SDK_REPO}/git/trees/master?recursive=1"
-MOBILE_SDK_URL  = f"https://github.com/{MOBILE_SDK_REPO}"
+MOBILE_SDK_URL = f"https://github.com/{MOBILE_SDK_REPO}"
 
 # Platforms we expect to find in the repo
-_PLATFORMS: list[str] = ["iOS", "Android", "ReactNative", "Flutter", "Xamarin", "Cordova"]
+_PLATFORMS: list[str] = [
+    "iOS",
+    "Android",
+    "ReactNative",
+    "Flutter",
+    "Xamarin",
+    "Cordova",
+]
 
 
 async def _refresh_mobile_sdk(client: niquests.AsyncSession) -> str:
@@ -373,7 +376,11 @@ async def _refresh_mobile_sdk(client: niquests.AsyncSession) -> str:
                 continue
             lines.append(f"### {platform} ({len(files)} files)\n\n")
             # Surface only READMEs and key integration files to keep the index readable
-            key_files = [f for f in files if "README" in f.upper() or f.endswith((".md", ".podspec", ".gradle", ".json"))]
+            key_files = [
+                f
+                for f in files
+                if "README" in f.upper() or f.endswith((".md", ".podspec", ".gradle", ".json"))
+            ]
             for f in key_files[:10]:
                 url = f"{MOBILE_SDK_URL}/blob/master/{f}"
                 lines.append(f"- [{f}]({url})\n")
@@ -392,8 +399,7 @@ async def _refresh_mobile_sdk(client: niquests.AsyncSession) -> str:
     else:
         for platform in _PLATFORMS:
             lines.append(
-                f"### {platform}\n\n"
-                f"- [README]({MOBILE_SDK_URL}/blob/master/{platform}/README.md)\n\n"
+                f"### {platform}\n\n- [README]({MOBILE_SDK_URL}/blob/master/{platform}/README.md)\n\n"
             )
 
     return _header("Mobile SDK", MOBILE_SDK_URL) + "".join(lines)
@@ -405,15 +411,16 @@ async def _refresh_mobile_sdk(client: niquests.AsyncSession) -> str:
 
 _REFRESHERS = {
     "help-center": _refresh_help_center,
-    "web-sdk":     _refresh_web_sdk,
-    "engage-api":  _refresh_engage_api,
-    "mobile-sdk":  _refresh_mobile_sdk,
+    "web-sdk": _refresh_web_sdk,
+    "engage-api": _refresh_engage_api,
+    "mobile-sdk": _refresh_mobile_sdk,
 }
 
 
 # ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
+
 
 @app.default
 async def main(

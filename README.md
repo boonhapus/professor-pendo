@@ -1,7 +1,7 @@
 > [!IMPORTANT]
 > This repository is in **beta**: we're still shaping things up, so you may see layout, docs, or skills shift over the next few weeks as we iterate.
 
----
+______________________________________________________________________
 
 <img src="docs/professor-pendo.png" align="right" alt="<Image: Professor Pendo logo/brand>" width="250" />
 
@@ -9,7 +9,7 @@
 
 #### **Professor Pendo**
 
----
+______________________________________________________________________
 
 The **Professor** is an Agent who helps **Pendo** admins run a cleaner subscription: clear naming, stable tagging, and guidance you can act on.
 
@@ -28,23 +28,25 @@ Paste or adapt these in chat. With [**Pendo MCP**](https://support.pendo.io/hc/e
 - _Aggregation: count visitors who clicked Feature X in the last **7 days** (not all-time)._
 - _How does guide activation work in Pendo? Pull the official docs and summarize with links._
 
----
+______________________________________________________________________
 
 ## Skills Library
 
 <!-- pendo-skills-start -->
+
 ## Pendo Skills
 
-| Skill | What it does | MCP | API |
-| --- | --- | :---: | :---: |
-| [**Aggregation Builder**](.agents/SKILLS/pendo/pendo-aggregation-builder/) | Use when the user needs to understand how Pendo Aggregation API pipelines work, compose pipelines, or verify queries. | ❌ | ✅ |
-| [**Documentation**](.agents/SKILLS/pendo/pendo-docs/) | Answer questions about Pendo features, concepts, SDK usage, API integration, and platform capabilities by fetching live documentation. | ❌ | ❌ |
-| [**Feature Naming Convention**](.agents/SKILLS/pendo/pendo-feature-naming-convention/) | Audits Pendo feature names for consistent, readable, understandable labels and explains why that matters for analytics and tagged UI elements. | ✅ | ❌ |
-| [**Feature Rule Quality**](.agents/SKILLS/pendo/pendo-feature-rule-quality/) | Evaluates Pendo feature CSS element rules for selector stability; scores selectors 0–100 via fetch_features.py and evaluate_selector.py. | ❌ | ✅ |
-| [**Page Naming Convention**](.agents/SKILLS/pendo/pendo-page-naming-convention/) | Audits Pendo page names for consistent, readable, understandable labels and explains why that matters for analytics and segments. | ✅ | ❌ |
+| Skill                                                                                  | What it does                                                                                                                                   | MCP | API |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: |
+| [**Aggregation Builder**](.agents/SKILLS/pendo/pendo-aggregation-builder/)             | Use when the user needs to understand how Pendo Aggregation API pipelines work, compose pipelines, or verify queries.                          | ❌  | ✅  |
+| [**Documentation**](.agents/SKILLS/pendo/pendo-docs/)                                  | Answer questions about Pendo features, concepts, SDK usage, API integration, and platform capabilities by fetching live documentation.         | ❌  | ❌  |
+| [**Feature Naming Convention**](.agents/SKILLS/pendo/pendo-feature-naming-convention/) | Audits Pendo feature names for consistent, readable, understandable labels and explains why that matters for analytics and tagged UI elements. | ✅  | ❌  |
+| [**Feature Rule Quality**](.agents/SKILLS/pendo/pendo-feature-rule-quality/)           | Evaluates Pendo feature CSS element rules for selector stability; scores selectors 0–100 via fetch_features.py and evaluate_selector.py.       | ❌  | ✅  |
+| [**Page Naming Convention**](.agents/SKILLS/pendo/pendo-page-naming-convention/)       | Audits Pendo page names for consistent, readable, understandable labels and explains why that matters for analytics and segments.              | ✅  | ❌  |
+
 <!-- pendo-skills-end -->
 
----
+______________________________________________________________________
 
 ## Getting Started
 
@@ -53,14 +55,14 @@ These **skills** are short guides your AI can follow for Pendo naming, tagging, 
 ### Manual install
 
 1. **[Download the ZIP](https://github.com/boonhapus/professor-pendo/archive/refs/heads/main.zip)** and unzip it, or clone this repo.
-2. Open **`.agents`** → **`SKILLS`** and copy the **`pendo`** folder (do not rename it).
-3. Paste **`pendo`** into the destination for your tool. Copy the whole folder at once, not the subfolders one by one.
+1. Open **`.agents`** → **`SKILLS`** and copy the **`pendo`** folder (do not rename it).
+1. Paste **`pendo`** into the destination for your tool. Copy the whole folder at once, not the subfolders one by one.
 
-| Tool | Windows | Mac |
-| --- | --- | --- |
-| **Cursor** | `.agents\skills\pendo\` | `.agents/skills/pendo/` |
+| Tool            | Windows                               | Mac                       |
+| --------------- | ------------------------------------- | ------------------------- |
+| **Cursor**      | `.agents\skills\pendo\`               | `.agents/skills/pendo/`   |
 | **Claude Code** | `%USERPROFILE%\.claude\skills\pendo\` | `~/.claude/skills/pendo/` |
-| **Gemini CLI** | `.gemini\skills\pendo\` | `.gemini/skills/pendo/` |
+| **Gemini CLI**  | `.gemini\skills\pendo\`               | `.gemini/skills/pendo/`   |
 
 Restart the app (or reload the window) if the skills do not appear right away.
 
@@ -69,7 +71,7 @@ _**Why isn't Claude Desktop and browser chat apps** in the table above? **API sk
 > [!NOTE]
 > **[`.env.sample`](.env.sample)** lists the **environment variable names** Pendo API scripts in this repo expect: `PENDO_SUBSCRIPTION_ID`, `PENDO_INTEGRATION_KEY`, and optionally `PENDO_DATA_ENVIRONMENT` (data region). It ships **without secrets** so credentials never live in git. To use it, copy the file to **`.env`** in the repo root, fill in your values, and keep **`.env`** local (it is **gitignored**).
 
----
+______________________________________________________________________
 
 ### Install with [uv](https://github.com/astral-sh/uv)
 

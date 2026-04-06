@@ -8,7 +8,7 @@ description: >
   named pages", "recently updated pages"). For **feature** names only, use
   `pendo-feature-naming-convention` instead.
 metadata:
-  version: "0.1.0"
+  version: 0.1.0
   pendo_mcp: true
   pendo_api: false
 ---
@@ -19,11 +19,12 @@ Audits Pendo page names against a naming convention and explains why consistent 
 
 **When to use:** Questions about **Page** entity names—conventions, consistency, readability, discoverability, or audits of recently updated pages. For **Feature** names, use `pendo-feature-naming-convention`.
 
----
+______________________________________________________________________
 
 ## Why naming conventions matter
 
 Consistent page naming is one of the highest-leverage things a Pendo admin can do. Pages appear as raw names in:
+
 - **Analytics dropdowns** — Paths, Funnels, Retention, and Page analytics reports
 - **Dashboard widgets** — where names are the only label shown
 - **Segment builder** — used by non-technical stakeholders to build audience rules
@@ -32,7 +33,7 @@ A good naming convention makes pages instantly scannable. A bad one — `/?id=32
 
 **Keep names short:** The Pendo UI truncates page names at approximately **40 characters** in most dropdowns and name fields. The most specific segment — the View — is the part most likely to be cut off. Aim to stay under 40 characters.
 
----
+______________________________________________________________________
 
 ## Naming convention
 
@@ -41,6 +42,7 @@ Pages describe *where* a user is — a location, not an action. The structure re
 > **`[Area] [sep] [Section] [sep] [View]`**
 >
 > Examples using `>` as separator:
+>
 > - `Analytics > Funnels > Report`
 > - `Settings > Billing > Payment Methods`
 > - `Onboarding > Setup > Company Profile`
@@ -52,13 +54,14 @@ Pages describe *where* a user is — a location, not an action. The structure re
 
 The user chooses their own separator. Ask at the start of an audit if none has been established. Use the same separator as the feature naming convention if one is already in use across the account.
 
-| Separator | Example | Notes |
-|---|---|---|
-| `>` | `Analytics > Funnels > Report` | Clear, readable, widely used |
-| `-` | `Analytics - Funnels - Report` | Clean, minimal |
-| `\|` | `Analytics \| Funnels \| Report` | High contrast in dropdowns |
+| Separator | Example                          | Notes                        |
+| --------- | -------------------------------- | ---------------------------- |
+| `>`       | `Analytics > Funnels > Report`   | Clear, readable, widely used |
+| `-`       | `Analytics - Funnels - Report`   | Clean, minimal               |
+| `\|`      | `Analytics \| Funnels \| Report` | High contrast in dropdowns   |
 
 **Not recommended:**
+
 - `_` (underscore) — hard to read, looks like a URL slug
 - space only — ambiguous, no clear segment boundaries
 - raw URL paths (e.g. `/app/settings/billing`) — unreadable in dropdowns
@@ -69,10 +72,10 @@ The separator must be used **consistently** across all segments in a name. Mixed
 
 0. **Segment 0 (App Name) — optional** — Some teams prefix all page names with the app name (e.g. `MyApp > Analytics > Funnels > Report`). This is acceptable as long as it is used **consistently across all pages in that app**. If the app name is longer than ~8 characters, flag a ⚠️ warning that it will consume a significant portion of the 40-character limit.
 1. **Segment 1 (Area)** — Title Case, 1–3 words. The top-level section of the product (e.g. `Analytics`, `Settings`, `Onboarding`, `Users`).
-2. **Segment 2 (Section)** — Title Case, 1–4 words. A subsection or module within the Area (e.g. `Funnels`, `Billing`, `Team Management`).
-3. **Segment 3+ (View)** — Title Case noun phrase, 1–4 words. The name of the specific screen or view. Should end with or be a recognized view type word where possible (see reference list below). Must **not** start with a verb. Additional segments beyond 3 are allowed if needed for specificity, but the **total name length must stay under 40 characters**.
-4. Each segment must be non-empty after trimming.
-5. No double spaces, no leading/trailing spaces per segment.
+1. **Segment 2 (Section)** — Title Case, 1–4 words. A subsection or module within the Area (e.g. `Funnels`, `Billing`, `Team Management`).
+1. **Segment 3+ (View)** — Title Case noun phrase, 1–4 words. The name of the specific screen or view. Should end with or be a recognized view type word where possible (see reference list below). Must **not** start with a verb. Additional segments beyond 3 are allowed if needed for specificity, but the **total name length must stay under 40 characters**.
+1. Each segment must be non-empty after trimming.
+1. No double spaces, no leading/trailing spaces per segment.
 
 When evaluating consistency of the app name prefix: if some pages in the same app include the app name segment and others don't, flag the inconsistent ones as ⚠️ Minor.
 
@@ -82,7 +85,7 @@ When evaluating consistency of the app name prefix: if some pages in the same ap
 - ⚠️ 40–50 characters — borderline; flag as Minor and suggest shortening
 - ❌ Over 50 characters — flag as Invalid; almost certainly truncated in the UI
 
----
+______________________________________________________________________
 
 ## Workflow
 
@@ -102,6 +105,7 @@ entity_type: Page
 This returns page metadata including `id`, `name`, `appId`, `group` (Product Area), `createdAt`, `lastUpdatedAt`, `createdByUser`, and `lastUpdatedByUser`.
 
 Use the page `id` to construct a direct link to the page in Pendo:
+
 ```
 https://app.pendo.io/analytics/page/{pageId}
 ```
@@ -112,15 +116,16 @@ https://app.pendo.io/analytics/page/{pageId}
 
 Default to **recently updated pages** unless the user specifies otherwise. Always ask the user to confirm or adjust the time window.
 
-| Filter | Default | User can specify |
-|---|---|---|
+| Filter           | Default      | User can specify                                        |
+| ---------------- | ------------ | ------------------------------------------------------- |
 | Recently updated | Last 30 days | Number of days, or a specific date (e.g. "since Jan 1") |
-| Recently created | Last 30 days | Number of days, or a specific date |
-| By Product Area | — | Area name (from `group` field) |
-| By App | — | App ID or name |
-| By Author | — | Username from `createdByUser` |
+| Recently created | Last 30 days | Number of days, or a specific date                      |
+| By Product Area  | —            | Area name (from `group` field)                          |
+| By App           | —            | App ID or name                                          |
+| By Author        | —            | Username from `createdByUser`                           |
 
 When prompting for the time window, accept natural language:
+
 - "last 7 days" → `lastUpdatedAt >= now - 7d`
 - "since March 1" → `lastUpdatedAt >= 2025-03-01`
 - "this month" → start of current calendar month
@@ -132,9 +137,9 @@ Apply date filters client-side after fetching, or push into the Aggregation API 
 For each page name:
 
 1. Detect the separator (confirm it matches what the user specified)
-2. Split into segments
-3. Apply segment rules and length rule
-4. Classify:
+1. Split into segments
+1. Apply segment rules and length rule
+1. Classify:
    - ✅ **Valid** — fully matches the convention and under 40 chars
    - ⚠️ **Minor** — close but fixable (wrong case, borderline length, view starts with verb, mixed separators, unrecognized but plausible view type)
    - ❌ **Invalid** — wrong structure, missing segments, raw URL, view starts with a clear action verb, or over 50 chars
@@ -146,6 +151,7 @@ For each page name:
 **Keep feedback concise.** Only describe what is wrong — do not comment on valid names.
 
 **Summary block** (always show):
+
 ```
 Audited: 38 pages  |  ✅ Valid: 22  |  ⚠️ Minor: 8  |  ❌ Invalid: 8
 Filter: Updated in last 30 days
@@ -155,14 +161,14 @@ Filter: Updated in last 30 days
 
 Hyperlink each page name to its Pendo page using `https://app.pendo.io/analytics/page/{id}`. Format the name as a markdown link: `[Page Name](url)`.
 
-| Page Name | Status | Issue | Author | Last Updated By |
-|---|---|---|---|---|
-| [settings billing](https://app.pendo.io/analytics/page/abc123) | ❌ | No separators — cannot determine segments | jane@acme.com | — |
-| [Analytics > Report](https://app.pendo.io/analytics/page/def456) | ❌ | Only one separator — missing Section segment | bob@acme.com | alice@acme.com |
-| [Analytics > Funnels > edit funnel](https://app.pendo.io/analytics/page/ghi789) | ❌ | View segment starts with a verb ("edit") — looks like a feature, not a page | — | jane@acme.com |
-| [Analytics > Funnels > report](https://app.pendo.io/analytics/page/jkl012) | ⚠️ | View not in Title Case | bob@acme.com | bob@acme.com |
-| [Analytics - Funnels > Report](https://app.pendo.io/analytics/page/mno345) | ⚠️ | Mixed separators (`-` and `>`) | alice@acme.com | — |
-| [/app/analytics/funnels/report](https://app.pendo.io/analytics/page/pqr678) | ❌ | Raw URL path — unreadable in dropdowns | — | — |
+| Page Name                                                                       | Status | Issue                                                                       | Author         | Last Updated By |
+| ------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------- | -------------- | --------------- |
+| [settings billing](https://app.pendo.io/analytics/page/abc123)                  | ❌     | No separators — cannot determine segments                                   | jane@acme.com  | —               |
+| [Analytics > Report](https://app.pendo.io/analytics/page/def456)                | ❌     | Only one separator — missing Section segment                                | bob@acme.com   | alice@acme.com  |
+| [Analytics > Funnels > edit funnel](https://app.pendo.io/analytics/page/ghi789) | ❌     | View segment starts with a verb ("edit") — looks like a feature, not a page | —              | jane@acme.com   |
+| [Analytics > Funnels > report](https://app.pendo.io/analytics/page/jkl012)      | ⚠️     | View not in Title Case                                                      | bob@acme.com   | bob@acme.com    |
+| [Analytics - Funnels > Report](https://app.pendo.io/analytics/page/mno345)      | ⚠️     | Mixed separators (`-` and `>`)                                              | alice@acme.com | —               |
+| [/app/analytics/funnels/report](https://app.pendo.io/analytics/page/pqr678)     | ❌     | Raw URL path — unreadable in dropdowns                                      | —              | —               |
 
 > ⚠️ **Name length:** Pendo truncates page names at approximately **40 characters** in most analytics dropdowns, reports, and dashboard widgets. Names over 40 chars risk the most specific segment (the View) being hidden from users. Names over 50 chars are flagged ❌ Invalid.
 
@@ -173,6 +179,7 @@ Hyperlink each page name to its Pendo page using `https://app.pendo.io/analytics
 After the report, recommend actions the user can take — but **do not offer to make corrections yourself**. The user owns their page taxonomy.
 
 Suggested recommendations to offer:
+
 - Review invalid pages in Pendo's Pages List and rename them directly in the UI
 - Check if any verb-first pages should be re-tagged as features instead
 - Share the issues table with your team so the right owners can fix their pages
@@ -180,7 +187,7 @@ Suggested recommendations to offer:
 - Re-run this audit after fixes to confirm compliance
 - Consider auditing another product area or time window next
 
----
+______________________________________________________________________
 
 ## Recognized view type words (reference)
 
@@ -194,7 +201,7 @@ Builder, Editor, Viewer, Picker, Selector, Chooser, Manager, Explorer
 
 If the View segment does not use one of these words but is still clearly a noun phrase describing a screen (e.g. `Company Info`, `Team Members`, `Billing Address`), that is ✅ acceptable — the list is a guide, not a requirement.
 
----
+______________________________________________________________________
 
 ## Edge cases
 

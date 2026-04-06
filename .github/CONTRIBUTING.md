@@ -19,7 +19,7 @@ uv sync
 uv run prek install
 ```
 
-`uv sync` installs everything this project uses (including **Ruff** for Python, **mdformat** for Markdown, and **prek** for git hooks).  
+`uv sync` installs everything this project uses (including **Ruff** for Python, **mdformat** for Markdown, and **prek** for git hooks).
 `prek install` wires up hooks so your commits get checked automatically—run it **once per clone**.
 
 Hook definitions live in [`.pre-commit-config.yaml`](../.pre-commit-config.yaml) (standard filename; we only run hooks through **prek**, not other runners).
@@ -58,7 +58,7 @@ If you edit anything under `.agents/SKILLS/pendo/`, keep the Pendo skill registr
 
 ## Issues and pull requests
 
-Open an issue when something is broken or you have an idea—include enough detail to reproduce or discuss it.  
+Open an issue when something is broken or you have an idea—include enough detail to reproduce or discuss it.
 Pull requests work best when they’re **small and focused** and **match existing layout and naming**.
 
 ## Security

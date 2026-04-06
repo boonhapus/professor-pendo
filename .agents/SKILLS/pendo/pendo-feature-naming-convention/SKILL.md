@@ -8,7 +8,7 @@ description: >
   our convention", "badly named features", "recently updated features"). For **page**
   names only, use `pendo-page-naming-convention` instead.
 metadata:
-  version: "0.1.0"
+  version: 0.1.0
   pendo_mcp: true
   pendo_api: false
 ---
@@ -19,11 +19,12 @@ Audits Pendo feature names against a naming convention and explains why consiste
 
 **When to use:** Questions about **Feature** entity names—conventions, consistency, readability, discoverability, or audits of recently updated features. For **Page** names, use `pendo-page-naming-convention`.
 
----
+______________________________________________________________________
 
 ## Why naming conventions matter
 
 Consistent feature naming is one of the highest-leverage things a Pendo admin can do. Features appear as raw names in:
+
 - **Analytics dropdowns** — Feature Adoption, Path, Funnel, and Retention reports
 - **Dashboard widgets** — where names are the only label shown
 - **Tagged element lists** — used by non-technical stakeholders
@@ -32,7 +33,7 @@ A good naming convention makes features instantly scannable. A bad one forces us
 
 **Keep names short:** The Pendo UI truncates feature names at approximately **40 characters** in most dropdowns and name fields. The most specific segment — usually the Action Element — is the part most likely to be cut off. Aim to stay under 40 characters.
 
----
+______________________________________________________________________
 
 ## Naming convention
 
@@ -41,6 +42,7 @@ The structure reads naturally as: *"the action element is in the area, on the pa
 > **`[Page] [sep] [Area] [sep] [Action Element]`**
 >
 > Examples using `>` as separator:
+>
 > - `Payment Settings > Billing > Edit Method`
 > - `Company Setup > Onboarding > Submit Form`
 > - `Overview > Dashboard > Filter Date Range`
@@ -49,13 +51,14 @@ The structure reads naturally as: *"the action element is in the area, on the pa
 
 The user chooses their own separator. Ask at the start of an audit if no separator has been established.
 
-| Separator | Example | Notes |
-|---|---|---|
-| `>` | `Overview > Dashboard > Filter` | Clear, readable, widely used |
-| `-` | `Overview - Dashboard - Filter` | Clean, minimal |
-| `\|` | `Overview \| Dashboard \| Filter` | High contrast in dropdowns |
+| Separator | Example                           | Notes                        |
+| --------- | --------------------------------- | ---------------------------- |
+| `>`       | `Overview > Dashboard > Filter`   | Clear, readable, widely used |
+| `-`       | `Overview - Dashboard - Filter`   | Clean, minimal               |
+| `\|`      | `Overview \| Dashboard \| Filter` | High contrast in dropdowns   |
 
 **Not recommended:**
+
 - `_` (underscore) — hard to read, looks like a code artifact
 - space only — ambiguous, no clear segment boundaries
 
@@ -65,10 +68,10 @@ The separator must be used **consistently** across all segments in a name. Mixed
 
 0. **Segment 0 (App Name) — optional** — Some teams prefix all feature names with the app name (e.g. `MyApp > Payment Settings > Billing > Edit Method`). This is acceptable as long as it is used **consistently across all features in that app**. If the app name is longer than ~8 characters, flag a ⚠️ warning that it will consume a significant portion of the 40-character limit, leaving less room for the meaningful segments.
 1. **Segment 1 (Page)** — Title Case, 1–4 words
-2. **Segment 2 (Area)** — Title Case, 1–3 words
-3. **Segment 3+ (Action Element)** — verb + noun(s) in Title Case; verb must be a recognized UI action word (see reference list below). Additional segments beyond 3 are allowed if needed for specificity, but the **total name length must stay under 40 characters**.
-4. Each segment must be non-empty after trimming
-5. No double spaces, no leading/trailing spaces per segment
+1. **Segment 2 (Area)** — Title Case, 1–3 words
+1. **Segment 3+ (Action Element)** — verb + noun(s) in Title Case; verb must be a recognized UI action word (see reference list below). Additional segments beyond 3 are allowed if needed for specificity, but the **total name length must stay under 40 characters**.
+1. Each segment must be non-empty after trimming
+1. No double spaces, no leading/trailing spaces per segment
 
 When evaluating consistency of the app name prefix: if some features in the same app include the app name segment and others don't, flag the inconsistent ones as ⚠️ Minor.
 
@@ -78,7 +81,7 @@ When evaluating consistency of the app name prefix: if some features in the same
 - ⚠️ 40–50 characters — borderline; flag as Minor and suggest shortening
 - ❌ Over 50 characters — flag as Invalid; almost certainly truncated in the UI
 
----
+______________________________________________________________________
 
 ## Workflow
 
@@ -98,6 +101,7 @@ entity_type: Feature
 This returns feature metadata including `id`, `name`, `appId`, `group` (Product Area), `createdAt`, `lastUpdatedAt`, `createdByUser`, and `lastUpdatedByUser`.
 
 Use the feature `id`, the subscription ID, and the correct app **domain for the data environment** to build the feature URL:
+
 ```
 https://{domain}/s/{subscriptionId}/features/{featureId}
 ```
@@ -110,15 +114,16 @@ https://{domain}/s/{subscriptionId}/features/{featureId}
 
 Default to **recently updated features** unless the user specifies otherwise. Always ask the user to confirm or adjust the time window.
 
-| Filter | Default | User can specify |
-|---|---|---|
+| Filter           | Default      | User can specify                                        |
+| ---------------- | ------------ | ------------------------------------------------------- |
 | Recently updated | Last 30 days | Number of days, or a specific date (e.g. "since Jan 1") |
-| Recently created | Last 30 days | Number of days, or a specific date |
-| By Product Area | — | Area name (from `group` field) |
-| By App | — | App ID or name |
-| By Author | — | Username from `createdByUser` |
+| Recently created | Last 30 days | Number of days, or a specific date                      |
+| By Product Area  | —            | Area name (from `group` field)                          |
+| By App           | —            | App ID or name                                          |
+| By Author        | —            | Username from `createdByUser`                           |
 
 When prompting for the time window, accept natural language:
+
 - "last 7 days" → `lastUpdatedAt >= now - 7d`
 - "since March 1" → `lastUpdatedAt >= 2025-03-01`
 - "this month" → start of current calendar month
@@ -130,9 +135,9 @@ Apply date filters client-side after fetching, or push into the Aggregation API 
 For each feature name:
 
 1. Detect the separator (confirm it matches what the user specified)
-2. Split into segments
-3. Apply segment rules and length rule
-4. Classify:
+1. Split into segments
+1. Apply segment rules and length rule
+1. Classify:
    - ✅ **Valid** — fully matches the convention and under 40 chars
    - ⚠️ **Minor** — close but fixable (wrong case, borderline length, near-match verb, mixed separators)
    - ❌ **Invalid** — wrong structure, missing segments, unrecognized action verb, or over 50 chars
@@ -142,6 +147,7 @@ For each feature name:
 **Keep feedback concise.** Only describe what is wrong — do not comment on valid names.
 
 **Summary block** (always show):
+
 ```
 Audited: 42 features  |  ✅ Valid: 28  |  ⚠️ Minor: 6  |  ❌ Invalid: 8
 Filter: Updated in last 30 days
@@ -151,13 +157,13 @@ Filter: Updated in last 30 days
 
 Hyperlink each feature name using `https://{domain}/s/{subscriptionId}/features/{id}` (see Step 2 for `{domain}`). Format the name as a markdown link: `[Feature Name](url)`.
 
-| Feature Name | Status | Issue | Author | Last Updated By |
-|---|---|---|---|---|
-| [billing edit](https://app.pendo.io/s/123456/features/abc123) | ❌ | No separators — cannot determine segments | jane@acme.com | — |
-| [Payment Settings > Save](https://app.pendo.io/s/123456/features/def456) | ❌ | Only one separator — missing Area segment | bob@acme.com | alice@acme.com |
-| [Payment Settings > Billing > save method](https://app.pendo.io/s/123456/features/ghi789) | ⚠️ | Action Element not in Title Case | — | jane@acme.com |
-| [Payment Settings > Billing > Do the Thing](https://app.pendo.io/s/123456/features/jkl012) | ❌ | "Do" is not a recognized UI action verb | bob@acme.com | bob@acme.com |
-| [Payment Settings - Billing > Edit Method](https://app.pendo.io/s/123456/features/mno345) | ⚠️ | Mixed separators (`-` and `>`) | alice@acme.com | — |
+| Feature Name                                                                               | Status | Issue                                     | Author         | Last Updated By |
+| ------------------------------------------------------------------------------------------ | ------ | ----------------------------------------- | -------------- | --------------- |
+| [billing edit](https://app.pendo.io/s/123456/features/abc123)                              | ❌     | No separators — cannot determine segments | jane@acme.com  | —               |
+| [Payment Settings > Save](https://app.pendo.io/s/123456/features/def456)                   | ❌     | Only one separator — missing Area segment | bob@acme.com   | alice@acme.com  |
+| [Payment Settings > Billing > save method](https://app.pendo.io/s/123456/features/ghi789)  | ⚠️     | Action Element not in Title Case          | —              | jane@acme.com   |
+| [Payment Settings > Billing > Do the Thing](https://app.pendo.io/s/123456/features/jkl012) | ❌     | "Do" is not a recognized UI action verb   | bob@acme.com   | bob@acme.com    |
+| [Payment Settings - Billing > Edit Method](https://app.pendo.io/s/123456/features/mno345)  | ⚠️     | Mixed separators (`-` and `>`)            | alice@acme.com | —               |
 
 > ⚠️ **Name length:** Pendo truncates feature names at approximately **40 characters** in most analytics dropdowns, reports, and dashboard widgets. Names over 40 chars risk the most specific segment being hidden from users. Names over 50 chars are flagged ❌ Invalid.
 
@@ -168,13 +174,14 @@ Hyperlink each feature name using `https://{domain}/s/{subscriptionId}/features/
 After the report, recommend actions the user can take — but **do not offer to make corrections yourself**. The user owns their feature taxonomy.
 
 Suggested recommendations to offer:
+
 - Review the invalid features in Pendo's Feature List and rename them directly in the UI
 - Share the issues table with your team so the right owners can fix their features
 - Set up a naming review as part of your feature tagging process going forward
 - Re-run this audit after fixes to confirm compliance
 - Consider auditing another product area or time window next
 
----
+______________________________________________________________________
 
 ## Recognized UI action verbs (reference)
 
@@ -188,7 +195,7 @@ Comment, React, Pin, Unpin, Follow, Unfollow, Mark, Unmark, Lock, Unlock
 If an action word is close but not listed (e.g. "Modify" instead of "Edit"),
 flag as ⚠️ Minor and note the closest recognized verb.
 
----
+______________________________________________________________________
 
 ## Edge cases
 

@@ -2,7 +2,7 @@
 
 Operators transform rows as they flow through the pipeline. Each step receives rows from the step above and outputs rows to the step below. **Order matters.**
 
----
+______________________________________________________________________
 
 ## Basic Operators
 
@@ -21,6 +21,7 @@ Always use during development. Place after `sort` for Top-N queries. A `limit` i
 ```
 
 Examples:
+
 ```json
 { "filter": "numEvents > 10" }
 { "filter": "accountId != \"\"" }
@@ -57,6 +58,7 @@ Filters out `_PENDO_T_*` anonymous IDs. Prefer this over a manual `filter` — i
 ```
 
 Multiple fields in one `eval` execute in **undefined order**. If field B depends on field A, use two steps:
+
 ```json
 { "eval": { "rate": "numEvents / numMinutes" } },
 { "eval": { "kiloRate": "rate / 1000" } }
@@ -113,11 +115,13 @@ Uses field aggregators (see `aggregators-and-expressions.md`).
 ```
 
 Group with no aggregators returns unique combinations:
+
 ```json
 { "group": { "group": ["visitorId", "accountId"] } }
 ```
 
 **`forceKeys`** — Guarantee specific groups in output (even if empty):
+
 ```json
 {
   "group": {
@@ -127,6 +131,7 @@ Group with no aggregators returns unique combinations:
   }
 }
 ```
+
 Output will include rows for all three statuses; missing ones get zero-valued aggregators.
 
 ### `cat` — Pass-through (no-op)
@@ -137,7 +142,7 @@ Output will include rows for all three statuses; missing ones get zero-valued ag
 
 Useful only as a placeholder inside `fork` or `merge` pipelines.
 
----
+______________________________________________________________________
 
 ## Advanced Operators
 
@@ -205,8 +210,8 @@ Supports: `productArea`, `label`, `app`, `vocInsight`.
 ```
 
 1. Runs the inner pipeline to produce merge rows
-2. Matches on `fields` keys
-3. Copies values per `mappings` into main rows
+1. Matches on `fields` keys
+1. Copies values per `mappings` into main rows
 
 If `mappings` is omitted, all inner-pipeline fields are copied over.
 
@@ -264,12 +269,12 @@ Every row goes to every fork. Results from all forks are combined and continue d
 }
 ```
 
-| Parameter | Description |
-|-----------|-------------|
-| `field` | Array field to expand |
-| `index` | (optional) Store element index in this field |
-| `keepEmpty` | `true` = preserve rows where array is null/empty |
-| `prefix` | `true` = emit prefix slices instead of individual elements |
+| Parameter   | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| `field`     | Array field to expand                                      |
+| `index`     | (optional) Store element index in this field               |
+| `keepEmpty` | `true` = preserve rows where array is null/empty           |
+| `prefix`    | `true` = emit prefix slices instead of individual elements |
 
 ### `itemSeen` — All-time usage data for a countable
 
@@ -303,11 +308,13 @@ Appends an array of matching page/feature IDs to each row.
 ### `matchRules` — Test against page/feature rules
 
 **Field mode** (adds boolean):
+
 ```json
 { "matchRules": { "entity": "Page", "field": "match", "rules": ["//*/path"], "rulesType": "web" } }
 ```
 
 **Filter mode** (drops non-matches):
+
 ```json
 { "matchRules": { "entity": "Page", "filter": true, "rules": ["//*/path"], "rulesType": "web" } }
 ```
@@ -329,5 +336,6 @@ Works with `"entity": "Page"` (matches on `url`) and `"entity": "Feature"` (matc
 ```
 
 Only works with `timespan` source. `cohortMode`:
+
 - `"first"`: Visitors grouped into cohort of their first activity
 - `"all"`: Visitors in every cohort where they had activity

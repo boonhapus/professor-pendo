@@ -1,6 +1,6 @@
 ---
 name: pendo-skill-registry
-description: >
+description: >-
   Maintain the pendo skill registry whenever a skill is added, updated, renamed, or
   removed inside `.agents/SKILLS/pendo/`. Use this skill any time you create a new pendo
   skill, edit an existing one, or delete one — even if the change feels minor. The
@@ -17,19 +17,19 @@ description: >
 Whenever a skill is **added**, **modified**, **renamed**, or **removed** inside
 `.agents/SKILLS/pendo/`, you must update **both** registry files before finishing the task.
 
----
+______________________________________________________________________
 
 ## Registry Files
 
-| File | Purpose | Audience |
-|---|---|---|
-| `README.md` | Project-wide skill index at the repo root | Humans + all agents |
+| File                            | Purpose                                                  | Audience                                |
+| ------------------------------- | -------------------------------------------------------- | --------------------------------------- |
+| `README.md`                     | Project-wide skill index at the repo root                | Humans + all agents                     |
 | `.agents/SKILLS/pendo/SKILL.md` | Pendo-domain index; loaded when any pendo skill triggers | Agents working in the pendo skill space |
 
 Both files contain a **Skills Table** (see format below). Keep them identical in content for
 the pendo section — one is a full project index, the other is the pendo-scoped quick reference.
 
----
+______________________________________________________________________
 
 ## Pendo skill folder naming
 
@@ -43,7 +43,7 @@ name.
 - The domain index file `.agents/SKILLS/pendo/SKILL.md` is **not** a skill folder; do not rename
   it with a prefix.
 
----
+______________________________________________________________________
 
 ## When to Run This Skill
 
@@ -54,7 +54,7 @@ Run immediately after any of the following:
 - You delete or archive a pendo skill folder
 - You rename a pendo skill folder
 
----
+______________________________________________________________________
 
 ## Step-by-Step Workflow
 
@@ -69,7 +69,7 @@ cat .agents/SKILLS/pendo/SKILL.md
 
 Locate the table that lists pendo skills. It follows this format (see [Table Format](#table-format) below).
 
----
+______________________________________________________________________
 
 ### Step 2 — Enumerate all current pendo skills
 
@@ -86,6 +86,7 @@ head -25 .agents/SKILLS/pendo/pendo-<skill-name>/SKILL.md
 ```
 
 Extract:
+
 - `name` — the canonical skill identifier from frontmatter
 - `description` — the first sentence only (keep it ≤ 20 words for the table cell)
 - Folder name — for the link **target** in the Skill column; optional **Pretty Case** label for link **text** (see [Table Format](#table-format))
@@ -94,7 +95,7 @@ Extract:
 
 Every pendo skill **must** declare both booleans under `metadata` so the registry stays accurate.
 
----
+______________________________________________________________________
 
 ### Step 3 — Rebuild the table
 
@@ -103,7 +104,7 @@ regenerate from the actual folder contents so deletions are automatically reflec
 
 See [Table Format](#table-format) for the exact schema.
 
----
+______________________________________________________________________
 
 ### Step 4 — Update `README.md`
 
@@ -120,7 +121,7 @@ The block is delimited by these HTML comments — preserve them exactly:
 If the delimiters don't exist yet, add them in the appropriate section of `README.md`
 (under a `## Pendo Skills` heading, creating it if needed).
 
----
+______________________________________________________________________
 
 ### Step 5 — Update `.agents/SKILLS/pendo/SKILL.md`
 
@@ -142,7 +143,7 @@ The block uses the same delimiters:
 If the section doesn't exist yet in `pendo/SKILL.md`, add it under a
 `## Available Pendo Skills` heading near the top of the file.
 
----
+______________________________________________________________________
 
 ### Step 6 — Verify
 
@@ -155,7 +156,7 @@ grep -A 50 "pendo-skills-start" .agents/SKILLS/pendo/SKILL.md
 
 If they diverge, fix the discrepancy before finishing.
 
----
+______________________________________________________________________
 
 ## Table Format
 
@@ -181,6 +182,7 @@ Trailing-slash folder links (e.g. `./pendo-aggregation-builder/`) are acceptable
 prefer `./<folder>/SKILL.md` for a clear open target.
 
 **Rules:**
+
 - Each skill’s folder on disk **must** be named `pendo-<slug>` and match the YAML **`name`**
   field. The **Skill** column link **target** in the domain index must be that folder’s
   `SKILL.md` (or the folder URL) relative to `pendo/SKILL.md`.
@@ -198,7 +200,7 @@ prefer `./<folder>/SKILL.md` for a clear open target.
 - Never add skills that don't have a corresponding folder on disk.
 - Never leave skills in the table whose folder has been deleted.
 
----
+______________________________________________________________________
 
 ## Quality Checklist
 

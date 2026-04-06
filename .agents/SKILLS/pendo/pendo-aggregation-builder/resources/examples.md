@@ -2,7 +2,7 @@
 
 Each example shows a natural-language question followed by the complete runnable query. Use these as templates — swap sources, fields, filters, and time ranges to fit the user's request.
 
----
+______________________________________________________________________
 
 ## 1. List Visitors
 
@@ -27,7 +27,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 2. Top-N Visitors by Days Active
 
@@ -61,7 +61,7 @@ Each example shows a natural-language question followed by the complete runnable
 
 **Pipeline logic:** Load 30 days of events → drop anonymous → group per visitor, count unique days → sort descending → top 10.
 
----
+______________________________________________________________________
 
 ## 3. Total Unique Visitors (Single Metric)
 
@@ -84,7 +84,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 4. Daily Visitor Trend (Iterative)
 
@@ -109,7 +109,7 @@ Each example shows a natural-language question followed by the complete runnable
 
 **Key difference from Example 3:** Period is `daily` (iterative) instead of `dayRange` (aggregate), so the pipeline runs independently per day → 14 result sets.
 
----
+______________________________________________________________________
 
 ## 5. Breakdown by Visitor Metadata
 
@@ -151,7 +151,7 @@ Each example shows a natural-language question followed by the complete runnable
 
 **Pipeline logic:** Load events → deduplicate per visitor → enrich with metadata → re-group by metadata field → present.
 
----
+______________________________________________________________________
 
 ## 6. OS/Browser Breakdown
 
@@ -181,7 +181,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 7. Track Event Visitors
 
@@ -206,7 +206,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 8. Page Parameter Analysis
 
@@ -235,7 +235,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 9. Fork + Join (Multi-Metric per Entity)
 
@@ -267,7 +267,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 10. Segment-Filtered Query
 
@@ -294,7 +294,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 11. Retention Cohort
 
@@ -330,7 +330,7 @@ Each example shows a natural-language question followed by the complete runnable
 }
 ```
 
----
+______________________________________________________________________
 
 ## 12. Multi-App Events with Enrichment
 
@@ -364,7 +364,7 @@ Each example shows a natural-language question followed by the complete runnable
 
 **Key pattern:** Limit *before* bulkExpand to avoid expanding every visitor row.
 
----
+______________________________________________________________________
 
 ## Template: Blank Starting Point
 

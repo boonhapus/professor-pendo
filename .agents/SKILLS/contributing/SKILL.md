@@ -23,10 +23,10 @@ Do not duplicate those steps here; CONTRIBUTING.md is the single source of truth
 
 ## 2. Layout (quick reference)
 
-| What              | Where                    |
-| ----------------- | ------------------------ |
-| Pendo skills      | `.agents/SKILLS/pendo/`  |
-| Python package    | `src/professor_pendo/`   |
+| What               | Where                                    |
+| ------------------ | ---------------------------------------- |
+| Pendo skills       | `.agents/SKILLS/pendo/`                  |
+| Python package     | `src/professor_pendo/`                   |
 | Pendo skills index | [`../pendo/SKILL.md`](../pendo/SKILL.md) |
 
 Pick the folder that matches the task; AGENTS.md is not a full catalog of every skill.
